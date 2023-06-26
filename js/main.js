@@ -14,19 +14,6 @@
         }
     });
     
-    
-    // Back to top button
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
-        }
-    });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-        return false;
-    });
 
 
     // Modal Video
@@ -74,4 +61,53 @@
     });
     
 })(jQuery);
+
+// 
+new bootstrap.ScrollSpy(document.body, {
+    target: '#mainNav',
+    rootMargin: '0px 0px -40%',
+});
+
+// About Video
+const button = document.querySelector('.btn-play');
+const videoModal = document.querySelector('#videoModal');
+const videoIframe = videoModal.querySelector('iframe');
+
+button.addEventListener('click', function() {
+    const videoSrc = this.getAttribute('data-src');
+    videoIframe.setAttribute('src', videoSrc);
+    videoModal.classList.add('show');
+});
+
+videoModal.addEventListener('hide.bs.modal', function() {
+    videoIframe.setAttribute('src', '');
+    videoModal.classList.remove('show');
+});
+
+// Project Modal
+
+const openModalBtns = document.querySelectorAll('.openModalBtn');
+
+openModalBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+    const targetModalId = this.getAttribute('data-bs-target');
+    const targetModal = new bootstrap.Modal(document.querySelector(targetModalId));
+    
+    targetModal.show();
+    });
+});
+
+   // Back to top button
+   $(window).scroll(function () {
+    if ($(this).scrollTop() > 300) {
+        $('.back-to-top').fadeIn('slow');
+    } else {
+        $('.back-to-top').fadeOut('slow');
+    }
+    });
+    $('.back-to-top').click(function () {
+    $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+    return false;
+    });
+
 
